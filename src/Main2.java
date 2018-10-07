@@ -1,5 +1,3 @@
-import javafx.util.Pair;
-
 import java.io.*;
 import java.util.*;
 
@@ -39,8 +37,8 @@ public class Main2 {
 
         char[] charArr = string.toCharArray();
 
-        Stack<Pair<Character, Integer>> answerStack = new Stack<>();
-        answerStack.push(new Pair<>(' ', 0));
+        Stack<int[]> answerStack = new Stack<>();
+        answerStack.push(new int[] {' ', 0});
 
         Character previous = null;
 
@@ -49,14 +47,14 @@ public class Main2 {
                 if  (current == '(' || current == '{' || current == '[') {
                     previous = current;
                 } else {
-                    Pair<Character, Integer> lastAnswerStack = answerStack.pop();
+                    int[] lastAnswerStack = answerStack.pop();
 
-                    if (lastAnswerStack.getKey()=='(' && current==')') {
-                        if (addToLastAnswerStack(answerStack, lastAnswerStack.getValue())) previous=null; else return 0;
-                    } else if (lastAnswerStack.getKey()=='{' && current=='}') {
-                        if (addToLastAnswerStack(answerStack, lastAnswerStack.getValue()*2)) previous=null; else return 0;
-                    } else if (lastAnswerStack.getKey()=='[' && current==']') {
-                        if (addToLastAnswerStack(answerStack, lastAnswerStack.getValue()*3)) previous=null; else return 0;
+                    if (lastAnswerStack[0]=='(' && current==')') {
+                        if (addToLastAnswerStack(answerStack, lastAnswerStack[1])) previous=null; else return 0;
+                    } else if (lastAnswerStack[0]=='{' && current=='}') {
+                        if (addToLastAnswerStack(answerStack, lastAnswerStack[1]*2)) previous=null; else return 0;
+                    } else if (lastAnswerStack[0]=='[' && current==']') {
+                        if (addToLastAnswerStack(answerStack, lastAnswerStack[1]*3)) previous=null; else return 0;
                     } else {
                         return 0;
                     }
@@ -69,25 +67,25 @@ public class Main2 {
                 } else if (previous=='[' && current==']') {
                     if (addToLastAnswerStack(answerStack, 3)) previous=null; else return 0;
                 } else if (current == '(' || current == '{' || current == '[') {
-                    answerStack.push(new Pair<>(previous, 0));
+                    answerStack.push(new int[] {previous, 0});
                     previous = current;
                 }
             }
         }
 
         if (answerStack.size()==1) {
-            return answerStack.peek().getValue();
+            return answerStack.peek()[1];
         } else {
             return 0;
         }
     }
 
-    private static boolean addToLastAnswerStack(Stack<Pair<Character, Integer>> answerStack, int addNumber) {
+    private static boolean addToLastAnswerStack(Stack<int[]> answerStack, int addNumber) {
         if (answerStack.isEmpty()) {
             return false;
         } else {
-            Pair<Character, Integer> lastAnswerStack = answerStack.pop();
-            answerStack.push(new Pair<>(lastAnswerStack.getKey(), (lastAnswerStack.getValue()+addNumber)%100000000));
+            int[] lastAnswerStack = answerStack.pop();
+            answerStack.push(new int[] {lastAnswerStack[0], (lastAnswerStack[1]+addNumber)%100000000});
             return true;
         }
     }
