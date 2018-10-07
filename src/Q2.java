@@ -1,12 +1,13 @@
 import java.io.*;
 import java.util.*;
 
-public class Main2 {
+public class Q2 {
 
     public static void main(String args[]) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+        // 첨부된 샘플로 테스트하려면 아래 코드 사용.
 //        try {
 //            File file = new File("./Brackets_testcase/1.input.txt");
 //            br = new BufferedReader(new FileReader(file));
@@ -32,7 +33,6 @@ public class Main2 {
 
     private static int getAnswer(String string) {
 
-        // 괄호가 홀수개면 무조건 예외.
         if (string.length()%2==1) return 0;
 
         char[] charArr = string.toCharArray();

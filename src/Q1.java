@@ -2,13 +2,14 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Main1 {
+public class Q1 {
 
     public static void main(String args[]) throws IOException {
 
         List<String> names = new ArrayList<>();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+        // 첨부된 샘플로 테스트하려면 아래 코드 사용.
 //        try {
 //            File file = new File("./Vote_testcase/1.input.txt");
 //            br = new BufferedReader(new FileReader(file));
